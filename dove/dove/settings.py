@@ -62,6 +62,8 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 8
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
+DUPEFILTER_CLASS = 'dove.custom_filter.CustomFilter'
+
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {

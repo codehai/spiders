@@ -6,7 +6,7 @@ import json
 import codecs
 import time
 import os
-from pybloom import BloomFilter
+import dove.global_var as global_var
 
 # class DovePipeline(object):
 #     def process_item(self, item, spider):
@@ -33,20 +33,13 @@ class IdeadotPipeline(object):
     def spider_closed(self, spider):  
         self.file.close() 
 
+
 class DovePipeline(object):  
     def __init__(self):  
         self.file = codecs.open(time.strftime('%Y-%m-%d %X',time.localtime()).replace(':','-')+".json", 'w', encoding='utf-8')  
   
     def open_spider(self, spider):
-
-        isexists =os.path.exists('bloomfilter')
-
-        if isexists == True:
-            file = open('bloomfilter', 'rb')
-            self.bf = BloomFilter.fromfile(file)
-            file.close()
-        else:
-            self.bf = BloomFilter(capacity=10000000)
+        self.bf = global_var.BLOOM_FILTER
 
     def process_item(self, item, spider):
         flag = self.bf.add(item["url"])
